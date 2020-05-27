@@ -1,0 +1,20 @@
+{
+  "name": "@softprovider/ajaxutils",
+  "version": "0.0.0000",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/softprovider/ajaxutils.git"
+  },
+  "author": "Alexandru Prisacariu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/softprovider/ajaxutils/issues"
+  },
+  "homepage": "https://github.com/softprovider/ajaxutils#readme",
+  "dependencies": {}
+}
