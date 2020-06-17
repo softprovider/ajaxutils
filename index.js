@@ -1,5 +1,3 @@
-let AjaxUtils = {};
-
 // TODO: Can only parse simple arrays
 function serializeObject(root, obj) {
     const keys = Object.keys(obj);
@@ -25,7 +23,7 @@ function serializeObject(root, obj) {
     return url;
 }
 
-AjaxUtils.request2 = function(type, url, data, options) {
+export default function(type, url, data, options) {
     if (!options) options = {};
 
     return new Promise((resolve, reject) => {
@@ -55,24 +53,28 @@ AjaxUtils.request2 = function(type, url, data, options) {
                 }
             }
         };
+
         xhttp.responseType = "json";
 
         console.debug(`[ajaxutils]Sending request to ${type}:${url} with data:`, data);
 
+        let sendData;
         if (data) {
             if (type == "GET") {
                 xhttp.open(type, url + "?_=" + Date.now() + serializeObject("", data), true);
-                xhttp.send();
             } else {
                 xhttp.open(type, url, true);
                 xhttp.setRequestHeader("Content-Type", "application/json");
-                xhttp.send(JSON.stringify(data));
+                sendData = JSON.stringify(data);
             }
         } else {
             xhttp.open(type, url, true);
-            xhttp.send();
         }
+
+        if (window.ajaxSettings && window.ajaxSettings.headers) {
+            for (const header in window.ajaxSettings.headers) xhttp.setRequestHeader(header, window.ajaxSettings.headers[header]);
+        }
+
+        xhttp.send(sendData);
     });
 };
-
-export default AjaxUtils;
