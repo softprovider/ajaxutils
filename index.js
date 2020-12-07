@@ -59,7 +59,9 @@ export default function(type, url, data, options) {
         console.debug(`[ajaxutils]Sending request to ${type}:${url} with data:`, data);
 
         let sendData;
-        if (data) {
+        if (options.sendRaw) {
+            sendData = data;
+        } else if (data) {
             if (type == "GET") {
                 xhttp.open(type, url + "?_=" + Date.now() + serializeObject("", data), true);
             } else {
