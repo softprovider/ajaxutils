@@ -59,15 +59,19 @@ export default function(type, url, data, options) {
         console.debug(`[ajaxutils]Sending request to ${type}:${url} with data:`, data);
 
         let sendData;
-        if (options.sendRaw) {
-            sendData = data;
-        } else if (data) {
+        if (data) {
             if (type == "GET") {
                 xhttp.open(type, url + "?_=" + Date.now() + serializeObject("", data), true);
             } else {
                 xhttp.open(type, url, true);
-                xhttp.setRequestHeader("Content-Type", "application/json");
-                sendData = JSON.stringify(data);
+                
+                if (options.multipart) {
+                    xhttp.setRequestHeader("Content-Type", "multipart/form-data");
+                    sendData = data;
+                } else {
+                    xhttp.setRequestHeader("Content-Type", "application/json");
+                    sendData = JSON.stringify(data);
+                }
             }
         } else {
             xhttp.open(type, url, true);
