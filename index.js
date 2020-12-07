@@ -66,7 +66,7 @@ export default function(type, url, data, options) {
                 xhttp.open(type, url, true);
                 
                 if (options.multipart) {
-                    xhttp.setRequestHeader("Content-Type", "multipart/form-data");
+                    // xhttp.setRequestHeader("Content-Type", "multipart/form-data");
                     sendData = data;
                 } else {
                     xhttp.setRequestHeader("Content-Type", "application/json");
